@@ -61,10 +61,8 @@ class SimpleStorageService:
         """
         Method Name :   get_bucket
         Description :   This method gets the bucket object based on the bucket_name
-
         Output      :   Bucket object is returned based on the bucket name
         On Failure  :   Write an exception log and then raise an exception
-
         Version     :   1.2
         Revisions   :   moved setup to cloud
         """
@@ -81,25 +79,21 @@ class SimpleStorageService:
         """
         Method Name :   get_file_object
         Description :   This method gets the file object from bucket_name bucket based on filename
-
         Output      :   list of objects or object is returned based on filename
         On Failure  :   Write an exception log and then raise an exception
-
         Version     :   1.2
         Revisions   :   moved setup to cloud
         """
+
         logging.info("Entered the get_file_object method of S3Operations class")
 
         try:
             bucket = self.get_bucket(bucket_name)
-
             file_objects = [file_object for file_object in bucket.objects.filter(Prefix=filename)]
-
             func = lambda x: x[0] if len(x) == 1 else x
-
             file_objs = func(file_objects)
-            logging.info("Exited the get_file_object method of S3Operations class")
 
+            logging.info("Exited the get_file_object method of S3Operations class")
             return file_objs
 
         except Exception as e:
@@ -109,13 +103,12 @@ class SimpleStorageService:
         """
         Method Name :   load_model
         Description :   This method loads the model_name model from bucket_name bucket with kwargs
-
         Output      :   list of objects or object is returned based on filename
         On Failure  :   Write an exception log and then raise an exception
-
         Version     :   1.2
         Revisions   :   moved setup to cloud
         """
+
         logging.info("Entered the load_model method of S3Operations class")
 
         try:
@@ -138,13 +131,12 @@ class SimpleStorageService:
         """
         Method Name :   create_folder
         Description :   This method creates a folder_name folder in bucket_name bucket
-
         Output      :   Folder is created in s3 bucket
         On Failure  :   Write an exception log and then raise an exception
-
         Version     :   1.2
         Revisions   :   moved setup to cloud
         """
+
         logging.info("Entered the create_folder method of S3Operations class")
 
         try:
@@ -162,15 +154,13 @@ class SimpleStorageService:
         """
         Method Name :   upload_file
         Description :   This method uploads the from_filename file to bucket_name bucket with to_filename as bucket filename
-
         Output      :   Folder is created in s3 bucket
         On Failure  :   Write an exception log and then raise an exception
-
         Version     :   1.2
         Revisions   :   moved setup to cloud
         """
-        logging.info("Entered the upload_file method of S3Operations class")
 
+        logging.info("Entered the upload_file method of S3Operations class")
         try:
             logging.info(
                 f"Uploading {from_filename} file to {to_filename} file in {bucket_name} bucket"
@@ -186,9 +176,7 @@ class SimpleStorageService:
 
             if remove is True:
                 os.remove(from_filename)
-
                 logging.info(f"Remove is set to {remove}, deleted the file")
-
             else:
                 logging.info(f"Remove is set to {remove}, not deleted the file")
 
@@ -201,10 +189,8 @@ class SimpleStorageService:
         """
         Method Name :   upload_df_as_csv
         Description :   This method uploads the dataframe to bucket_filename csv file in bucket_name bucket
-
         Output      :   Folder is created in s3 bucket
         On Failure  :   Write an exception log and then raise an exception
-
         Version     :   1.2
         Revisions   :   moved setup to cloud
         """
@@ -212,7 +198,6 @@ class SimpleStorageService:
 
         try:
             data_frame.to_csv(local_filename, index=None, header=True)
-
             self.upload_file(local_filename, bucket_filename, bucket_name)
 
             logging.info("Exited the upload_df_as_csv method of S3Operations class")
@@ -224,10 +209,8 @@ class SimpleStorageService:
         """
         Method Name :   get_df_from_object
         Description :   This method gets the dataframe from the object_name object
-
         Output      :   Folder is created in s3 bucket
         On Failure  :   Write an exception log and then raise an exception
-
         Version     :   1.2
         Revisions   :   moved setup to cloud
         """
@@ -236,8 +219,10 @@ class SimpleStorageService:
         try:
             content = self.read_object(object_, make_readable=True)
             df = read_csv(content, na_values="na")
+
             logging.info("Exited the get_df_from_object method of S3Operations class")
             return df
+
         except Exception as e:
             raise USvisaException(e, sys) from e
 
@@ -245,13 +230,12 @@ class SimpleStorageService:
         """
         Method Name :   get_df_from_object
         Description :   This method gets the dataframe from the object_name object
-
         Output      :   Folder is created in s3 bucket
         On Failure  :   Write an exception log and then raise an exception
-
         Version     :   1.2
         Revisions   :   moved setup to cloud
         """
+
         logging.info("Entered the read_csv method of S3Operations class")
 
         try:
@@ -259,5 +243,6 @@ class SimpleStorageService:
             df = self.get_df_from_object(csv_obj)
             logging.info("Exited the read_csv method of S3Operations class")
             return df
+
         except Exception as e:
             raise USvisaException(e, sys) from e

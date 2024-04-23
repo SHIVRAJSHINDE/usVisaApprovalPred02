@@ -73,19 +73,19 @@ export AWS_SECRET_ACCESS_KEY=<AWS_SECRET_ACCESS_KEY>
     - Save the URI: 136566696263.dkr.ecr.us-east-1.amazonaws.com/mlproject
 	
 ## 4. Create EC2 machine (Ubuntu) 
-## 5. Open EC2 and Install docker in EC2 Machine:
+## 5. Open EC2 linex cmd and Install docker in EC2 Machine:
 	#optinal
 		sudo apt-get update -y
 		sudo apt-get upgrade
 	
-	#required
+	#required(instal docker)
 		curl -fsSL https://get.docker.com -o get-docker.sh
 		sudo sh get-docker.sh
 		sudo usermod -aG docker ubuntu
-	newgrp docker
+		newgrp docker
 	
-# 6. Configure EC2 as self-hosted runner:
-    setting>actions>runner>new self hosted runner> choose os> then run command one by one
+# 6. Configure EC2 to self-hosted runner(GIT repository):
+     setting>actions>runner>new self hosted runner> choose os> then run command one by one
 
 # 7. Setup github secrets:
    - AWS_ACCESS_KEY_ID

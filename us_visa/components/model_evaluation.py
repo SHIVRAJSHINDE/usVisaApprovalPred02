@@ -56,10 +56,10 @@ class ModelEvaluation:
         Method Name :   evaluate_model
         Description :   This function is used to evaluate trained model 
                         with production model and choose best model 
-        
         Output      :   Returns bool value based on validation results
         On Failure  :   Write an exception log and then raise an exception
         """
+
         try:
             test_df = pd.read_csv(self.data_ingestion_artifact.test_file_path)
             test_df['company_age'] = CURRENT_YEAR-test_df['yr_of_estab']
